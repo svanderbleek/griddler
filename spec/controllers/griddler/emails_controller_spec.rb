@@ -32,4 +32,12 @@ describe Griddler::EmailsController do
       SPF: "pass"
     }
   end
+
+  describe 'GET ping' do
+    it 'is successfull' do
+      get :ping
+
+      response.should be_success
+    end
+  end
 end

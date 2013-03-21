@@ -1,6 +1,18 @@
 class Griddler::EmailsController < ActionController::Base
   def create
-    Griddler::Email.new(normalized_params).process
+    # Mandrill posts array of inbound emails
+    raw_emails = [normalized_params].flatten
+
+    raw_emails.each do |raw_email|
+      puts raw_email.inspect
+      Griddler::Email.new(raw_email).process
+    end
+
+    head :ok
+  end
+
+  # Mandrill pings processing route
+  def ping
     head :ok
   end
 
